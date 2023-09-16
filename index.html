@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Simple Python3 Obfuscator</title>
+</head>
+<body>
+
+  <script>
+    
+    function setObfuscatedCodeText(value){
+      document.getElementById('obfuscated_code').value = value
+    }
+
+    function obfuscate(){
+      var normal_code = document.getElementById('normal_code').value
+      var content = normal_code;
+      for (let i = 0; i < getSliderValue(); i++) { 
+        content = formatText(btoa(content))
+      }
+      setObfuscatedCodeText(content)
+    }
+
+    function getSliderValue(){
+      return document.getElementById("slider").value
+    }
+
+    function updateSlider() {
+      var x = getSliderValue();
+      document.getElementById("sliderValue").innerHTML = x;
+    }
+
+    function formatText(text){
+      return "exec(__import__('base64').b64decode(__import__('codecs').getencoder('utf-8')('"+text+"')[0]))"
+    }
+
+  </script>
+
+  <center>
+
+  <h1 id="shadowtext">Python3 Code Obfuscator</h1>
+  
+  <textarea id="normal_code" rows="15" cols="70"></textarea>
+  <br><br><br><br><br>
+
+  <label for="slider", id="shadowtext">Interactions: <span id="sliderValue">30</span></label><br>
+  <input oninput="updateSlider()" type="range" id="slider" name="slider" min="0" max="60" step="1" value="30">
+  <br>
+
+  <button onclick="obfuscate()">Obfuscate!</button>
+
+  <br><br><br><br><br>
+  <textarea id="obfuscated_code" rows="15" cols="70"></textarea>
+  </center>
+
+  <br><br><br>
+  <p id="shadowtext"><u>Made by github.com/n0nexist</u></p>
+
+</body>
+</html>
